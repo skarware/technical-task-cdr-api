@@ -15,11 +15,11 @@ public class CallDetailRecord {
     @Column(name = "id", columnDefinition = "UUID")
     private UUID id;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "account", referencedColumnName = "phone_number", nullable = false)
     private UserAccount account;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "destination", referencedColumnName = "phone_number", nullable = false)
     private UserAccount destination;
 
