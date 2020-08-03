@@ -3,7 +3,7 @@ package edu.technical.task.cdrapi.model;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Date;
+import java.time.Instant;
 import java.util.UUID;
 
 @Data
@@ -23,13 +23,11 @@ public class CallDetailRecord {
     @JoinColumn(name = "destination", referencedColumnName = "phone_number", nullable = false)
     private UserAccount destination;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "start_date", columnDefinition = "TIMESTAMP", nullable = false)
-    private Date startDate;
+    @Column(name = "start_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+    private Instant startDate;
 
-    @Temporal(TemporalType.TIMESTAMP)
-    @Column(name = "end_date", columnDefinition = "TIMESTAMP", nullable = false)
-    private Date endDate;
+    @Column(name = "end_date", columnDefinition = "TIMESTAMP WITH TIME ZONE", nullable = false)
+    private Instant endDate;
 
     @Column(name = "status")
     private boolean status;
@@ -37,7 +35,7 @@ public class CallDetailRecord {
     @Column(name = "cost_per_minute")
     private double costPerMinute;
 
-    public CallDetailRecord(UUID id, UserAccount account, UserAccount destination, Date startDate, Date endDate, boolean status, double costPerMinute) {
+    public CallDetailRecord(UUID id, UserAccount account, UserAccount destination, Instant startDate, Instant endDate, boolean status, double costPerMinute) {
         this.id = id;
         this.account = account;
         this.destination = destination;

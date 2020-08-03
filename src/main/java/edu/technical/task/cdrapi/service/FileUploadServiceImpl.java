@@ -14,10 +14,17 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.ParseException;
-import java.util.*;
+import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
 
 @Service
 public class FileUploadServiceImpl implements FileUploadService {
@@ -119,12 +126,8 @@ public class FileUploadServiceImpl implements FileUploadService {
         UUID uuid = UUID.fromString(csvLine[0]);
         UserAccount account = new UserAccount(csvLine[1]);
         UserAccount destination = new UserAccount(csvLine[2]);
-        /*
-        STARTDATE and ENDDATE given in Unix Timestamp, in seconds, while new Date() expecting number of milliseconds
-         since the standard base time known as "the epoch", hence * 1000 as a second has a thousand milliseconds.
-         */
-        Date startDate = new Date(Long.parseLong(csvLine[3]) * 1000);
-        Date endDate = new Date(Long.parseLong(csvLine[4]) * 1000);
+        Instant startDate = Instant.ofEpochSecond(Long.parseLong(csvLine[3]));
+        Instant endDate = Instant.ofEpochSecond(Long.parseLong(csvLine[4]));
         boolean status = csvLine[5].equalsIgnoreCase("success");
         double costPerMinute = Double.parseDouble(NumberUtils.toDotDecimalSeparator(csvLine[6]));
 

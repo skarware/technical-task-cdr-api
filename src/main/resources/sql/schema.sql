@@ -7,8 +7,8 @@ create table CALL_DETAIL_RECORDS
 (
     ID              UUID                     not null primary key,
     COST_PER_MINUTE DOUBLE,
-    END_DATE        TIMESTAMP not null,
-    START_DATE      TIMESTAMP not null,
+    END_DATE        TIMESTAMP WITH TIME ZONE not null,
+    START_DATE      TIMESTAMP WITH TIME ZONE not null,
     STATUS          BOOLEAN,
     ACCOUNT         VARCHAR(255)             not null,
     DESTINATION     VARCHAR(255)             not null,
